@@ -9,6 +9,11 @@ $swagger-codegen generate -i ./swagger.yml -l go-server -o ./mock-server
 
 ## Implement function UsersIdGet
 ```
+import (
+	"encoding/json"
+	"github.com/gorilla/mux"
+)
+
 type User struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
@@ -43,18 +48,7 @@ func UsersIdGet(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## Docker run mock server
-```
-// build mock server version 1.0
-$docker build mock-server:1.0 .
-
-// run mocker server
-$docker run -p 8080:8080 --rm mock-server:1.0
-```
-
-Get user by id :: http://localhost:8080/users/1
-
-## Manual run mock server
+## Run mock server
 ```
 // go to mock folder
 $cd mock-server
@@ -68,6 +62,17 @@ $go mod init mock-server
 // add missing and remove unused modules
 $go mod tidy
 
-// start mock server
+// start mock server locally
 $go run main.go
 ```
+
+## Docker run mock server
+```
+// build mock server version 1.0
+$docker build -t mock-server:1.0 .
+
+// run mocker server
+$docker run -p 8080:8080 --rm mock-server:1.0
+```
+
+Get user by id :: http://localhost:8080/users/1
