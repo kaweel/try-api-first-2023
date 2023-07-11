@@ -1,2 +1,2 @@
 .DS_Store
-swagger/mock-server
+**/mock-server
