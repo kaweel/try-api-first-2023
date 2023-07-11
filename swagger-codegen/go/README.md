@@ -77,5 +77,5 @@ $docker run -p 8080:8080 --rm mock-server:1.0
 
 Get user by id :: http://localhost:8080/users/1
 
-## For Simple logic, ChatGPT is great at saving time
+## For simple logic, ChatGPT is great at saving time
 implement function UsersIdGet if id equal 1 return http status ok with response header set content-type json and charset with utf8 then set response body with no encoder and structure contain only two property `id` type int value is `1`  and `name` type string value is `Leanne Graham` else return http status not found
