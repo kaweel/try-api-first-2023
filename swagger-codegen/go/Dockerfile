@@ -1,4 +1,4 @@
-FROM golang:1.20.5-alpine3.18 as builder
+FROM golang:1.20.5-alpine3.18 AS builder
 RUN export GO111MODULE=on
 WORKDIR /go/src
 COPY mock-server/go ./go

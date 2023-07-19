@@ -1,10 +1,10 @@
 # Swagger
-Config mock server with swagger.yml file
+Config mock server with swagger.yaml file
 
 ## Generate mock server usgin swagger-codegen
 ```
 // generate go-server
-$swagger-codegen generate -i ../swagger.yml -l go-server -o ./mock-server
+$swagger-codegen generate -i ../swagger.yaml -l go-server -o ./mock-server
 ```
 
 ## Implement function UsersIdGet
