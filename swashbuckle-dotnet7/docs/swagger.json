@@ -10,6 +10,7 @@
         "tags": [
           "WeatherForecast"
         ],
+        "summary": "Get all weather forecast.",
         "responses": {
           "200": {
             "description": "Success",
@@ -41,24 +42,72 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "summary": "Create weather forecast.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWeatherForecast"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWeatherForecast"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWeatherForecast"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWeatherForecast"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWeatherForecast"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/WeatherForecast/{id}": {
+    "/WeatherForecast/{type}": {
       "get": {
         "tags": [
           "WeatherForecast"
         ],
-        "summary": "Get weather forecast by id.",
+        "summary": "Get weather forecast by type.",
         "parameters": [
           {
-            "name": "id",
+            "name": "type",
             "in": "path",
+            "description": "Type of weather",
             "required": true,
             "style": "simple",
             "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+              "type": "string"
+            },
+            "example": "Freezing"
           }
         ],
         "responses": {
@@ -67,7 +116,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WeatherForecast"
+                  "$ref": "#/components/schemas/CreateWeatherForecast"
                 }
               }
             }
@@ -77,7 +126,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
+                  "$ref": "#/components/schemas/ErrorMsg"
                 }
               }
             }
@@ -88,32 +137,33 @@
   },
   "components": {
     "schemas": {
-      "ProblemDetails": {
+      "CreateWeatherForecast": {
         "type": "object",
         "properties": {
-          "type": {
+          "date": {
             "type": "string",
-            "nullable": true
+            "format": "date"
           },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
+          "temperatureC": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
+          "summary": {
             "type": "string",
             "nullable": true
           }
         },
-        "additionalProperties": { }
+        "additionalProperties": false
+      },
+      "ErrorMsg": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "WeatherForecast": {
         "type": "object",
@@ -129,11 +179,6 @@
           "temperatureC": {
             "type": "integer",
             "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
           },
           "summary": {
             "type": "string",

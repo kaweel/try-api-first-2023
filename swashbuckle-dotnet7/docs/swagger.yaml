@@ -7,6 +7,7 @@ paths:
     get:
       tags:
         - WeatherForecast
+      summary: Get all weather forecast.
       responses:
         '200':
           description: Success
@@ -26,54 +27,83 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/WeatherForecast'
-  '/WeatherForecast/{id}':
+    post:
+      tags:
+        - WeatherForecast
+      summary: Create weather forecast.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWeatherForecast'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateWeatherForecast'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateWeatherForecast'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWeatherForecast'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWeatherForecast'
+  '/WeatherForecast/{type}':
     get:
       tags:
         - WeatherForecast
-      summary: Get weather forecast by id.
+      summary: Get weather forecast by type.
       parameters:
-        - name: id
+        - name: type
           in: path
+          description: Type of weather
           required: true
           style: simple
           schema:
-            type: integer
-            format: int32
+            type: string
+          example: Freezing
       responses:
         '200':
           description: Found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WeatherForecast'
+                $ref: '#/components/schemas/CreateWeatherForecast'
         '404':
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetails'
+                $ref: '#/components/schemas/ErrorMsg'
 components:
   schemas:
-    ProblemDetails:
+    CreateWeatherForecast:
       type: object
       properties:
-        type:
+        date:
           type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
+          format: date
+        temperatureC:
           type: integer
           format: int32
-          nullable: true
-        detail:
+        summary:
           type: string
           nullable: true
-        instance:
+      additionalProperties: false
+    ErrorMsg:
+      type: object
+      properties:
+        message:
           type: string
           nullable: true
-      additionalProperties: { }
+      additionalProperties: false
     WeatherForecast:
       type: object
       properties:
@@ -86,10 +116,6 @@ components:
         temperatureC:
           type: integer
           format: int32
-        temperatureF:
-          type: integer
-          format: int32
-          readOnly: true
         summary:
           type: string
           nullable: true

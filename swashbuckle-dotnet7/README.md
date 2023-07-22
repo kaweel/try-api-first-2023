@@ -19,4 +19,5 @@ $dotnet swagger tofile --yaml --output swagger.yml bin/Debug/net7.0/swashbuckle-
 
 # Reference
 - [Swashbuckle](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+- [Swashbuckle-Filters](https://github.com/mattfrear/Swashbuckle.AspNetCore.Filters)
 - [dotnet#7-swagger-doc](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-7.0&tabs=visual-studio)
